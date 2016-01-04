@@ -43,7 +43,7 @@ public class PackageDependenciesProcessingControllerTest {
         controller.run(args);
     }
     
-    @Test
+    @Test(expected = InvalidInputException.class)
     public void testNoPackageNamesProvidedAsCommandLineArguments() throws IOException {
         String[] args = new String[1];
         

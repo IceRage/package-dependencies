@@ -17,7 +17,7 @@ public class PackageDependenciesProcessingController {
     
     private static final String ERR_INVALID_PACKAGE_NAME_END    = "\" provided as a command line argument is not valid because it is not defined by the regular expression \"[a-zA-Z0-9_]+\". Please change.";
     private static final String ERR_INVALID_PACKAGE_NAME_BEGIN  = "The package name \"";
-    private static final String ERR_INVALID_NR_CMD_LINE_ARGS    = "Usage: java com.bt.coding_test.PackageDependenciesProcessor <package-dependencies-data-file-path> <package-1> <package-2> ... <package-n>.";
+    private static final String ERR_INVALID_NR_CMD_LINE_ARGS    = "Usage: java com.bt.coding_test.PackageDependenciesProcessor <package-dependencies-data-file-path> <package-1> [<package-2> ... <package-n>].";
 
     private PackageDependenciesDirectedGraph     packageDependenciesGraph;
     private PackageDependenciesFindingStrategy   packageDependenciesFinder;
@@ -55,14 +55,13 @@ public class PackageDependenciesProcessingController {
     }
 
     /**
-     * Check if the number of command line arguments is greater than 0.
+     * Check if the number of command line arguments is greater than 1.
      * 
      * @param args The command line arguments.
-     * @throws InvalidInputException if the number of command line arguments is less than 1.
+     * @throws InvalidInputException if the number of command line arguments is less than 2.
      */
-    private void validateNrOfCommandLineArguments(String[] args)
-            throws InvalidInputException {
-        if (args.length < 1) {
+    private void validateNrOfCommandLineArguments(String[] args) throws InvalidInputException {
+        if (args.length < 2) {
             throw new InvalidInputException(ERR_INVALID_NR_CMD_LINE_ARGS);
         }
     }
@@ -73,8 +72,7 @@ public class PackageDependenciesProcessingController {
      * @param args The command line arguments.
      * @throws InvalidInputException if package names are invalid.
      */
-    private void validateCommandLinePackageNames(String[] args)
-            throws InvalidInputException {
+    private void validateCommandLinePackageNames(String[] args) throws InvalidInputException {
         for (int i = 1; i < args.length; ++i) {
             if (!PackageDependenciesDataFileValidator.getInstance().isValidPackageName(args[i])) {
                 throw new InvalidInputException(
