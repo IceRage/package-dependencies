@@ -3,11 +3,11 @@ Package dependencies project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Author: Ovidiu Parvu
-Date: 2nd January 2016
+Created on: 2nd January 2016
 
 
 I) Prerequisites to build and run executables:
-Maven 3.3.9, JUnit 4.12
+Java SDK 1.8, Maven 3.3.9, JUnit 4.12
 
 II) Compile project and run all unit tests from the project root folder using the command:
 mvn clean install

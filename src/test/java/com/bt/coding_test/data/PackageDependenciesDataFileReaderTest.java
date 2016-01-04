@@ -103,40 +103,40 @@ public class PackageDependenciesDataFileReaderTest {
         PackageDependenciesDirectedGraph graph = reader.read(filePath);
         
         // Check if the direct dependencies of gui are correct
-        Iterator<Package> packageDependencies = graph.getDirectPackageDependenciesIterator(new Package("gui"));
+        Iterator<Package> packageDependencies = graph.getDirectPackageDependencies(new Package("gui"));
         
         assertTrue(packageDependencies.next().getName().equals("awtui"));
         assertTrue(packageDependencies.next().getName().equals("swingui"));
         assertFalse(packageDependencies.hasNext());
         
         // Check if the direct dependencies of swingui are correct
-        packageDependencies = graph.getDirectPackageDependenciesIterator(new Package("swingui"));
+        packageDependencies = graph.getDirectPackageDependencies(new Package("swingui"));
         
         assertTrue(packageDependencies.next().getName().equals("extensions"));
         assertTrue(packageDependencies.next().getName().equals("runner"));
         assertFalse(packageDependencies.hasNext());
         
         // Check if the direct dependencies of textui are correct
-        packageDependencies = graph.getDirectPackageDependenciesIterator(new Package("textui"));
+        packageDependencies = graph.getDirectPackageDependencies(new Package("textui"));
         
         assertTrue(packageDependencies.next().getName().equals("framework"));
         assertTrue(packageDependencies.next().getName().equals("runner"));
         assertFalse(packageDependencies.hasNext());
         
         // Check if the direct dependencies of awtui are correct
-        packageDependencies = graph.getDirectPackageDependenciesIterator(new Package("awtui"));
+        packageDependencies = graph.getDirectPackageDependencies(new Package("awtui"));
         
         assertTrue(packageDependencies.next().getName().equals("runner"));
         assertFalse(packageDependencies.hasNext());
         
         // Check if the direct dependencies of runner are correct
-        packageDependencies = graph.getDirectPackageDependenciesIterator(new Package("runner"));
+        packageDependencies = graph.getDirectPackageDependencies(new Package("runner"));
         
         assertTrue(packageDependencies.next().getName().equals("framework"));
         assertFalse(packageDependencies.hasNext());
         
         // Check if the direct dependencies of extensions are correct
-        packageDependencies = graph.getDirectPackageDependenciesIterator(new Package("extensions"));
+        packageDependencies = graph.getDirectPackageDependencies(new Package("extensions"));
         
         assertTrue(packageDependencies.next().getName().equals("framework"));
         assertFalse(packageDependencies.hasNext());

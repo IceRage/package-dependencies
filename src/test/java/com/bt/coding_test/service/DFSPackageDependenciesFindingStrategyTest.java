@@ -1,4 +1,4 @@
-package com.bt.coding_test.model;
+package com.bt.coding_test.service;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,16 +9,23 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PackageDependenciesDirectedGraphTest {
+import com.bt.coding_test.model.Package;
+import com.bt.coding_test.model.PackageDependenciesDirectedGraph;
+import com.bt.coding_test.service.DFSPackageDependenciesFindingStrategy;
+import com.bt.coding_test.service.PackageDependenciesFindingStrategy;
+
+public class DFSPackageDependenciesFindingStrategyTest {
 
     private final static Package SRC_PACKAGE = new Package("gui"); 
     
-    private PackageDependenciesDirectedGraph packageDependencies;
+    private PackageDependenciesDirectedGraph    packageDependencies;
+    private PackageDependenciesFindingStrategy  packageDependenciesFinder;
     
     
     @Before
     public void setUp() {
-        packageDependencies = new PackageDependenciesDirectedGraph();
+        packageDependencies         = new PackageDependenciesDirectedGraph();
+        packageDependenciesFinder   = new DFSPackageDependenciesFindingStrategy(); 
     }
     
     @Test
@@ -35,12 +42,9 @@ public class PackageDependenciesDirectedGraphTest {
             packageDependencies.addNewPackageDependency(SRC_PACKAGE, targetPackages[i]);
         }
         
-        // Get package dependencies
-        Iterator<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(
-                                                       SRC_PACKAGE
-                                                   ).iterator();
-        
         // Check package dependencies
+        Iterator<Package> srcPackageDependencies = getPackageDependencies(SRC_PACKAGE).iterator();
+        
         for (int i = 0; i < targetPackages.length; ++i) {
             assertTrue(srcPackageDependencies.next().equals(targetPackages[i]));
         }
@@ -63,12 +67,9 @@ public class PackageDependenciesDirectedGraphTest {
             );
         }
         
-        // Get package dependencies
-        Iterator<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(
-                                                       SRC_PACKAGE
-                                                   ).iterator();
-        
         // Check package dependencies
+        Iterator<Package> srcPackageDependencies = getPackageDependencies(SRC_PACKAGE).iterator();
+        
         for (int i = 0; i < targetPackages.length; ++i) {
             assertTrue(srcPackageDependencies.next().equals(targetPackages[i]));
         }
@@ -91,15 +92,12 @@ public class PackageDependenciesDirectedGraphTest {
             );
         }
         
-        // Get package dependencies
-        Iterator<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(
-                                                       SRC_PACKAGE
-                                                   ).iterator();
-
-        // Sort target packages
+        // Sort the target packages
         Arrays.sort(targetPackages);
         
         // Check package dependencies
+        Iterator<Package> srcPackageDependencies = getPackageDependencies(SRC_PACKAGE).iterator();
+        
         for (int i = 0; i < targetPackages.length; ++i) {
             assertTrue(srcPackageDependencies.next().equals(targetPackages[i]));
         }
@@ -122,12 +120,9 @@ public class PackageDependenciesDirectedGraphTest {
             );
         }
         
-        // Get package dependencies
-        Iterator<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(
-                                                       SRC_PACKAGE
-                                                   ).iterator();
-        
         // Check package dependencies
+        Iterator<Package> srcPackageDependencies = getPackageDependencies(SRC_PACKAGE).iterator();
+        
         for (int i = 0; i < consideredPackages.length; ++i) {
             assertTrue(srcPackageDependencies.next().equals(consideredPackages[i]));
         }
@@ -151,12 +146,9 @@ public class PackageDependenciesDirectedGraphTest {
             );
         }
         
-        // Get package dependencies
-        Iterator<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(
-                                                       SRC_PACKAGE
-                                                   ).iterator();
-        
         // Check package dependencies
+        Iterator<Package> srcPackageDependencies = getPackageDependencies(SRC_PACKAGE).iterator();
+        
         for (int i = 1; i < consideredPackages.length; ++i) {
             assertTrue(srcPackageDependencies.next().equals(consideredPackages[i]));
         }
@@ -180,12 +172,9 @@ public class PackageDependenciesDirectedGraphTest {
             );
         }
         
-        // Get package dependencies
-        Iterator<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(
-                                                       SRC_PACKAGE
-                                                   ).iterator();
-        
         // Check package dependencies
+        Iterator<Package> srcPackageDependencies = getPackageDependencies(SRC_PACKAGE).iterator();
+        
         for (int i = 1; i < consideredPackages.length; ++i) {
             assertTrue(srcPackageDependencies.next().equals(consideredPackages[i]));
         }
@@ -207,11 +196,20 @@ public class PackageDependenciesDirectedGraphTest {
             );
         }
         
-        // Get package dependencies
-        Set<Package> srcPackageDependencies = packageDependencies.getAllPackageDependencies(new Package("awtui"));
-        
         // Check package dependencies
+        Set<Package> srcPackageDependencies = getPackageDependencies(consideredPackages[0]);
+        
         assertTrue(srcPackageDependencies.size() == 1);
+    }
+    
+    /**
+     * Get the dependencies for a given package.
+     * 
+     * @param givenPackage The given package.
+     * @return The package dependencies.
+     */
+    private Set<Package> getPackageDependencies(Package givenPackage) {
+        return packageDependenciesFinder.find(givenPackage, packageDependencies);
     }
     
 }
