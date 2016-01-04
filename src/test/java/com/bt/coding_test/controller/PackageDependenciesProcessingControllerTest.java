@@ -12,7 +12,7 @@ import com.bt.coding_test.service.DFSPackageDependenciesFindingStrategy;
 
 public class PackageDependenciesProcessingControllerTest {
 
-    private static final String PERF_TEST_PACKAGE_NAME_PREFIX = "FooBar";
+    private static final String PERF_TEST_PACKAGE_NAME_PREFIX = "Abracadabra";
     private static final int    PERF_TEST_NR_DEPS_PER_PACKAGE = 100;
     private static final int    PERF_TEST_NR_PACKAGES         = 1000;
     

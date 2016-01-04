@@ -10,7 +10,7 @@ import com.bt.coding_test.model.Package;
 import com.bt.coding_test.model.PackageDependenciesDirectedGraph;
 
 /**
- * Strategy class using depth-first search to find package dependencies in a package dependencies directed graph.
+ * Strategy class using depth first search to find package dependencies in a package dependencies directed graph.
  */
 public class DFSPackageDependenciesFindingStrategy implements PackageDependenciesFindingStrategy {
 

@@ -44,7 +44,7 @@ public class PackageDependenciesDataFileValidator {
      * @return True if the separator is valid, and false otherwise.
      */
     public boolean isValidSeparator(String givenSeparator) {
-        return (givenSeparator.compareTo(PACKAGE_DEPENDENCY_SEPARATOR) == 0);
+        return (givenSeparator.equals(PACKAGE_DEPENDENCY_SEPARATOR));
     }
     
     private PackageDependenciesDataFileValidator() {

@@ -50,12 +50,31 @@ public class PackageDependenciesProcessingController {
      * @throws IOException if the command line arguments are invalid.
      */
     private void validateCommandLineArguments(String[] args) throws IOException {
-        // Check if the number of command line arguments is greater than 0
+        validateNrOfCommandLineArguments(args);
+        validateCommandLinePackageNames(args);
+    }
+
+    /**
+     * Check if the number of command line arguments is greater than 0.
+     * 
+     * @param args The command line arguments.
+     * @throws InvalidInputException if the number of command line arguments is less than 1.
+     */
+    private void validateNrOfCommandLineArguments(String[] args)
+            throws InvalidInputException {
         if (args.length < 1) {
             throw new InvalidInputException(ERR_INVALID_NR_CMD_LINE_ARGS);
         }
-        
-        // Check if the package names are valid
+    }
+    
+    /**
+     * Check if the package names provided as command line arguments are valid.
+     * 
+     * @param args The command line arguments.
+     * @throws InvalidInputException if package names are invalid.
+     */
+    private void validateCommandLinePackageNames(String[] args)
+            throws InvalidInputException {
         for (int i = 1; i < args.length; ++i) {
             if (!PackageDependenciesDataFileValidator.getInstance().isValidPackageName(args[i])) {
                 throw new InvalidInputException(

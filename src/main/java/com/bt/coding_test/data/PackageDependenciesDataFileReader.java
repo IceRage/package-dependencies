@@ -92,6 +92,7 @@ public class PackageDependenciesDataFileReader {
         BufferedReader                   fileReader = new BufferedReader(new FileReader(filePath));
         
         // Process each line from the data file
+        // Assumption: The number of lines is less or equal to 2^63 - 1
         long lineNumber = 1;
         
         while (fileReader.ready()) {
@@ -134,12 +135,14 @@ public class PackageDependenciesDataFileReader {
     /**
      * Split the line into tokens and check if the tokens are valid.
      * 
-     * Assumption: A line is invalid if it does not contain one package followed by a separator.
-     * Assumption: If the left hand side package appears on right hand side throw an exception.
+     * Assumption: A line is invalid if it does not contain one package followed by the separator token "->".
+     * Assumption: A line is invalid if it contains a package self-dependency.
      * Assumption: A data file entry is valid if it is defined by the regular expression: 
-     *             "[ ]*<package>[ ]+->([ ]+<package>)+[ ]+", 
+     *             "[ \t]*<package>[ \t]+->([ \t]+<package>)+[ \t]*", 
      *             where <package> is equal to the regular expression defined to validate package names in the 
-     *             PackageDependenciesDataFileValidator class. 
+     *             com.bt.coding_test.validation.PackageDependenciesDataFileValidator class. 
+     * Assumption: It is not an error if the same package name appears more than once to the right of the separator 
+     *             token "->". 
      *  
      * @param line          The given line.
      * @param lineNumber    The given line number.
@@ -208,7 +211,7 @@ public class PackageDependenciesDataFileReader {
             validatePackageName(dependencyPackageName, line, lineNumber);
 
             // Check if the source and dependency package names are identical
-            if (srcPackageName.compareTo(dependencyPackageName) == 0) {
+            if (srcPackageName.equals(dependencyPackageName)) {
                 throwInvalidInputException(ERR_PACKAGE_SELF_DEPENDENCY, line, lineNumber);
             }
         }
@@ -299,6 +302,8 @@ public class PackageDependenciesDataFileReader {
 
     /**
      * Check if the given character is a white space character (i.e. " " or "\t").
+     * 
+     * Assumption: The characters which are considered white space characters are " " and "\t".
      * 
      * @param character The given character.
      * @return True if the given character is a white space character, and false otherwise.

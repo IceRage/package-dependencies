@@ -31,7 +31,7 @@ public class Package implements Comparable<Package> {
     @Override
     public boolean equals(Object rhsPackage) {
         // Two packages are equal if they have the same name
-        return (name.compareTo(((Package) rhsPackage).name) == 0);
+        return (name.equals(((Package) rhsPackage).name));
     }
 
     @Override

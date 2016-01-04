@@ -20,7 +20,7 @@ public class PackageDependenciesProcessor {
             
             controller.run(args);
         } catch (IOException exception) {
-            System.out.println(ERR_MSG_PREFIX + exception.getMessage());
+            System.err.println(ERR_MSG_PREFIX + exception.getMessage());
         }
     }
     

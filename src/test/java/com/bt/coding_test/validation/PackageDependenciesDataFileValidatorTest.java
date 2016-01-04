@@ -5,9 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-/**
- * Unit tests for the package dependencies data file validator.
- */
 public class PackageDependenciesDataFileValidatorTest {
 
     @Test
